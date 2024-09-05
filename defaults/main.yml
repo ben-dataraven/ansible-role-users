@@ -1,2 +1,13 @@
 ---
 # defaults file for users
+
+users_directory: {}
+
+# default settings for users
+users_default_append: false # if false, remove all non-specified groups
+users_default_createhome: true
+users_default_move_home: false # attempt to move the users old home to the specified directory
+users_default_remove: false # if state is absent, attempt to remove associated directories
+users_default_force: false # if state is absent, force removal of user and associated directories
+users_default_shell: '/bin/bash'
+# users_default_skeleton: /path/to/skeleton/directory

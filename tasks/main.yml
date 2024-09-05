@@ -1,2 +1,28 @@
 ---
 # tasks file for users
+
+- name: Configure users
+  ansible.builtin.user:
+    name: "{{ item.key }}"
+    append: "{{ item.value.append | default(users_default_append) }}"
+    comment: "{{ item.value.comment | default(omit) }}"
+    createhome: "{{ item.value.createhome | default(users_default_createhome) }}"
+    expires: "{{ item.value.expires | default(omit) }}"
+    force: "{{ item.value.force | default(users_default_force) }}"
+    group: "{{ item.value.group | default(omit) }}"
+    groups: "{{ item.value.groups | join(',') if item.value.groups is defined else omit }}"
+    home: "{{ item.value.home | default(omit) }}"
+    move_home: "{{ item.value.move_home | default(users_default_move_home) }}"
+    password: "{{ item.value.password | default(omit) }}"
+    remove: "{{ item.value.remove | default(users_default_remove) }}"
+    shell: "{{ item.value.shell | default(users_default_shell)"
+    skeleton: "{{ item.value.skeleton | default(users_default_skeleton | default(omit)) }}"
+    state: "{{ item.value.state | default(omit) }}"
+    uid: "{{ item.value.uid | default(omit) }}"
+  loop: "{{ users_directory | dict2items }}"
+
+- name: Configure authorized keys
+  ansible.builtin.include_tasks: authorized_keys.yml
+  loop: "{{ users_directory | dict2items }}"
+  loop_control:
+    loop_var: user
