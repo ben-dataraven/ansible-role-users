@@ -10,8 +10,11 @@ Any pre-requisites that may not be covered by Ansible itself or the role should 
 
 Role Variables
 --------------
+### User Directory
+The main variable is `users_directory`, which is a dictionary of users and settings that is passed to `ansible.builtin.user`
 
-The main variable is `users_directory`, which is a dictionary of users and settings that is passed to `ansible.builtin.user` (see https://docs.ansible.com/ansible/latest/collections/ansible/builtin/user_module.html) for more information on what each setting does
+See [ansible documentation](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/user_module.html) for more information on what each setting does
+
 ```yaml
   username1:
     append: "{{ users_default_append }}"
@@ -41,8 +44,8 @@ The main variable is `users_directory`, which is a dictionary of users and setti
 ```
 authorized_keys are passed to `ansible.posix.authorized_keys`
 
-
-The following `users_default_` variables can be set to effectively override the ansible.builtin.user defaults
+### Defaults for User Settings
+The following `users_default_` variables can be set to effectively override the `ansible.builtin.user` defaults
 
 |Variable|Default|Description|
 |-----|-----|-----|
@@ -53,6 +56,16 @@ The following `users_default_` variables can be set to effectively override the 
 |users_default_force|false|if sate is absnet, force removal of user and associated directories|
 |users_default_shell|'/bin/bash'||
 |users_default_skeleton|*unset*|path to skeleton directory|
+
+### Sudo group
+For convenience, the variable `users_sudo_groupname` is provided, and is set to either 'sudo' or 'wheel' depending on OS-family.  This variable can be used in `users_dictionary` definitions.  For example
+
+```yaml
+  users_dictionary:
+    ben:
+      groups:
+        - "{{ users_sudo_groupname }}"
+```
 
 Dependencies
 ------------
