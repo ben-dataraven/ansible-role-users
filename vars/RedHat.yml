@@ -1,4 +1,4 @@
 ---
-# vars for Debian family OS
+# vars for RedHat family OS
 
-users_sudo_groupname: 'sudo'
+users_sudo_groupname: 'wheel'
