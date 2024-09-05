@@ -26,6 +26,7 @@
 
 - name: Configure authorized keys
   ansible.builtin.include_tasks: authorized_keys.yml
+  when: user.authorized_keys
   loop: "{{ users_directory | dict2items }}"
   loop_control:
     loop_var: user
