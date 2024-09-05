@@ -18,7 +18,7 @@
     move_home: "{{ item.value.move_home | default(users_default_move_home) }}"
     password: "{{ item.value.password | default(omit) }}"
     remove: "{{ item.value.remove | default(users_default_remove) }}"
-    shell: "{{ item.value.shell | default(users_default_shell)"
+    shell: "{{ item.value.shell | default(users_default_shell) }}"
     skeleton: "{{ item.value.skeleton | default(users_default_skeleton | default(omit)) }}"
     state: "{{ item.value.state | default(omit) }}"
     uid: "{{ item.value.uid | default(omit) }}"
